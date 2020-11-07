@@ -1,14 +1,31 @@
 {
   "name": "resist",
   "version": "0.0.1",
-  "description": "Node.js on Docker",
-  "author": "First Last <first.last@example.com>",
+  "description": " Very basic multiplayer online game example made with Phaser, Node.js and Socket.io ",
   "main": "server.js",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pgaldon/basic-mmo-phaser.git"
+  },
+  "keywords": [
+    "Phaser",
+    "Multiplayer",
+    "game",
+    "Node.js",
+    "socket.io"
+  ],
+  "author": "Jerome Renaux",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pgaldon/basic-mmo-phaser/issues"
+  },
+  "homepage": "https://github.com/pgaldon/basic-mmo-phaser#readme",
   "dependencies": {
-    "express": "^4.17.1",
-    "socket.io": "^3.0.0"
+    "express": "^4.15.2",
+    "socket.io": "^1.7.3"
   }
 }

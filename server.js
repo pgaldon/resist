@@ -11,18 +11,14 @@ app.get('/',function(req,res){
     res.sendFile(__dirname+'/index.html');
 });
 
-app.get('/',function(req,res){
-    res.sendFile(__dirname+'/index.html'); 
-});
+server.lastPlayderID = 0;
 
-server.listen(8080,function(){ // Listens to port 8080
+server.listen(process.env.PORT || 8080,function(){
     console.log('Listening on '+server.address().port);
 });
 
-
-server.lastPlayderID = 0; // Keep track of the last id assigned to a new player
-
 io.on('connection',function(socket){
+
     socket.on('newplayer',function(){
         socket.player = {
             id: server.lastPlayderID++,
@@ -31,16 +27,35 @@ io.on('connection',function(socket){
         };
         socket.emit('allplayers',getAllPlayers());
         socket.broadcast.emit('newplayer',socket.player);
+
+        socket.on('click',function(data){
+            console.log('click to '+data.x+', '+data.y);
+            socket.player.x = data.x;
+            socket.player.y = data.y;
+            io.emit('move',socket.player);
+        });
+
         socket.on('disconnect',function(){
             io.emit('remove',socket.player.id);
         });
+    });
+
+    socket.on('test',function(){
+        console.log('test received');
     });
 });
 
 function getAllPlayers(){
     var players = [];
-    Object.keys(io.sockets.connected).forEach(function(socketID){
-        var player = io.sockets.connected[socketID].player;
+    const defaultNS = io.of('/')
+    io.of('/').clients((error, clients) => {
+        if (error) throw error;
+        console.log(clients); // => [Anw2LatarvGVVXEIAAAD]
+      });
+    console.log("yo bitches" + defaultNS.clients)
+    
+    Object.keys(defaultNS.clients).forEach(function(socketID){
+        var player = io.sockets.clients[socketID].player;
         if(player) players.push(player);
     });
     return players;
