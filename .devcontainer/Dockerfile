@@ -14,6 +14,6 @@ FROM mcr.microsoft.com/vscode/devcontainers/base:0-alpine-3.10
 
 RUN mkdir -p /usr/local/bin/nodejs
 RUN curl -sLf https://nodejs.org/dist/v14.15.0/node-v14.15.0-linux-x64.tar.xz --output /tmp/node-v14.15.0-linux-x64.tar.xz
-RUN tar -xJvf node-v14.15.0-linux-x64.tar.xz -C /usr/local/bin/nodejs
+RUN tar -xJvf /tmp/node-v14.15.0-linux-x64.tar.xz -C /usr/local/bin/nodejs
 RUN echo "export PATH=$PATH:/usr/local/bin/nodejs/bin" >> /root/.bashrc
 
