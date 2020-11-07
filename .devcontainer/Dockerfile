@@ -5,15 +5,16 @@
 
 # To fully customize the contents of this image, use the following Dockerfile instead:
 # https://github.com/microsoft/vscode-dev-containers/tree/v0.117.1/containers/alpine-3.10-git/.devcontainer/Dockerfile
-FROM mcr.microsoft.com/vscode/devcontainers/base:0-alpine-3.10
+FROM node:13
 
 # ** [Optional] Uncomment this section to install additional packages. **
 #
 # RUN apk update \
 #     && apk add --no-cache <your-package-list-here>
 
-RUN mkdir -p /usr/local/bin/nodejs
-RUN curl -sLf https://nodejs.org/dist/v14.15.0/node-v14.15.0-linux-x64.tar.xz --output /tmp/node-v14.15.0-linux-x64.tar.xz
-RUN tar -xJvf /tmp/node-v14.15.0-linux-x64.tar.xz -C /usr/local/bin/nodejs
-RUN echo "export PATH=$PATH:/usr/local/bin/nodejs/bin" >> /root/.bashrc
+WORKDIR /workspace/resist
+RUN npm install
+EXPOSE 8080
+CMD ["node", "server.js"]
+
 
