@@ -16,6 +16,7 @@ Game.preload = function() {
 };
 
 Game.create = function(){
+    Client.sendTest();
     Game.playerMap = {};
     var testKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
     testKey.onDown.add(Client.sendTest, this);

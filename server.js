@@ -18,6 +18,7 @@ server.listen(process.env.PORT || 8080,function(){
 });
 
 io.on('connection',function(socket){
+    console.log("Welcome Player")
 
     socket.on('newplayer',function(){
         socket.player = {
@@ -25,16 +26,22 @@ io.on('connection',function(socket){
             x: randomInt(100,400),
             y: randomInt(100,400)
         };
-        socket.emit('allplayers',getAllPlayers());
-        socket.broadcast.emit('newplayer',socket.player);
-
+    
+    console.log(socket.player.id)
+    console.log(socket.player.x)
+    console.log(socket.player.y)
+    
+    //Game.addNewPlayer(socket.player.id, socket.player.x, socket.player.y)
+    socket.emit('me',socket.player);
+    socket.broadcast.emit('newplayer',socket.player);
+//
         socket.on('click',function(data){
             console.log('click to '+data.x+', '+data.y);
             socket.player.x = data.x;
             socket.player.y = data.y;
             io.emit('move',socket.player);
         });
-
+//
         socket.on('disconnect',function(){
             io.emit('remove',socket.player.id);
         });
@@ -47,17 +54,18 @@ io.on('connection',function(socket){
 
 function getAllPlayers(){
     var players = [];
-    const defaultNS = io.of('/')
-    io.of('/').clients((error, clients) => {
+
+    var clients = io.clients((error, clients) => {
         if (error) throw error;
-        console.log(clients); // => [Anw2LatarvGVVXEIAAAD]
+        console.log(clients); // => [6em3d4TJP8Et9EMNAAAA, G5p55dHhGgUnLUctAAAB]
       });
-    console.log("yo bitches" + defaultNS.clients)
+
+    console.log("yo bitches" + clients)
     
-    Object.keys(defaultNS.clients).forEach(function(socketID){
-        var player = io.sockets.clients[socketID].player;
-        if(player) players.push(player);
-    });
+    //Object.keys(clients).forEach(function(socketID){
+    //    var player = io.sockets.clients[socketID].player;
+    //    if(player) players.push(player);
+    //});
     return players;
 }
 

@@ -26,6 +26,7 @@
   "homepage": "https://github.com/pgaldon/basic-mmo-phaser#readme",
   "dependencies": {
     "express": "^4.15.2",
-    "socket.io": "^1.7.3"
+    "socket.io": "^3.0.0",
+    "phaser": "^3.24.1"
   }
 }

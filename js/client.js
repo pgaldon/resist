@@ -18,7 +18,13 @@ Client.sendClick = function(x,y){
   Client.socket.emit('click',{x:x,y:y});
 };
 
+Client.socket.on('me',function(data){
+    console.log(data)
+    Game.addNewPlayer(data.id,data.x,data.y);
+});
+
 Client.socket.on('newplayer',function(data){
+    console.log(data)
     Game.addNewPlayer(data.id,data.x,data.y);
 });
 
